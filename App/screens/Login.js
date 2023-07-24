@@ -1,0 +1,49 @@
+import React,  { useState } from "react"
+import { StyleSheet, StatusBar, View } from "react-native"
+import { SafeAreaView } from "react-native-safe-area-context";
+import { NavLogin } from "../components/Nav"
+import { LoginInput } from "../components/Input";
+import { LoginButton } from "../components/LoginButton";
+import colors from "../constants/colors"
+
+const styles = StyleSheet.create({
+    fondo: {
+        backgroundColor: colors.fondo,
+        flex: 1
+    },
+    contenedor: {
+        flex: 1,
+        justifyContent: "center",
+    }
+})
+
+export default ({ navigation }) => {
+    const [valueEmail, setValueEmail] = useState("")
+    const [valuePass, setValuePass] = useState("")
+
+    return (
+        <SafeAreaView style={styles.fondo}>
+            <StatusBar barStyle="dark-content" backgroundColor={colors.fondo}/>
+            <NavLogin onPress={() => navigation.push("Register")}></NavLogin>
+            <View style={styles.contenedor}>
+                <LoginInput 
+                    label="Correo" 
+                    value={valueEmail}
+                    placeholder="Ingrese su correo" 
+                    onChangeText={text => setValueEmail(text)}
+                    keyboardType="default"
+                    secureTextEntry={false}
+                />
+                <LoginInput 
+                    label="Contraseña" 
+                    value={valuePass}
+                    placeholder="Ingrese su contraseña"
+                    onChangeText={text => setValuePass(text)}
+                    keyboardType="default"
+                    secureTextEntry={true} 
+                />
+            </View>
+            <LoginButton text="Ingresar" onPress={() => alert("Has iniciado sesión!")}/>
+        </SafeAreaView>
+    )
+}
