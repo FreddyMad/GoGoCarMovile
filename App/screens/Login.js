@@ -1,5 +1,5 @@
 import React,  { useState } from "react"
-import { StyleSheet, StatusBar, View } from "react-native"
+import { Alert, StyleSheet, StatusBar, View } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
 import { NavLogin } from "../components/Nav"
 import { LoginInput } from "../components/Input";
@@ -17,6 +17,9 @@ const styles = StyleSheet.create({
     }
 })
 
+const loginButton = (values) => {
+    Alert.alert("Éxito", "Has iniciado sesión!")
+}
 export default ({ navigation }) => {
     const [valueEmail, setValueEmail] = useState("")
     const [valuePass, setValuePass] = useState("")
@@ -43,7 +46,7 @@ export default ({ navigation }) => {
                     secureTextEntry={true} 
                 />
             </View>
-            <LoginButton text="Ingresar" onPress={() => alert("Has iniciado sesión!")}/>
+            <LoginButton text="Ingresar" onPress={() => navigation.navigate('Menu')}/>
         </SafeAreaView>
     )
 }

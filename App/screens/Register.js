@@ -37,7 +37,7 @@ export default ({ navigation }) => {
                     <LoginInput 
                         label="Matricula" 
                         value={valueTag}
-                        placeholder="Matricula" 
+                        placeholder="Matrícula" 
                         onChangeText={text => setValueTag(text)}
                         keyboardType="numeric"
                         secureTextEntry={false}
@@ -45,7 +45,7 @@ export default ({ navigation }) => {
                     <LoginInput 
                         label="Correo" 
                         value={valueEmail}
-                        placeholder="Correo Electronico" 
+                        placeholder="Correo Electrónico" 
                         onChangeText={text => setValueEmail(text)}
                         keyboardType="default"
                         secureTextEntry={false}
@@ -75,7 +75,7 @@ export default ({ navigation }) => {
                     <LoginInput 
                         label="Telefono"
                         value={valuePhone} 
-                        placeholder="Número de Telefono" 
+                        placeholder="Número de Teléfono" 
                         onChangeText={text => setValuePhone(text)}
                         keyboardType="numeric"
                         secureTextEntry={false}

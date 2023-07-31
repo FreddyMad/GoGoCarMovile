@@ -18,8 +18,8 @@ export const NavLogin =({ onPress }) => (
     <View>
         <GoGoCar />
         <View style={styles.ContainerOption}>
-            <OptionSelected title="Iniciar Sesion"/>
-            <Option title="Registrate" onPress={onPress}/>
+            <OptionSelected title="Iniciar Sesión"/>
+            <Option title="Regístrate" onPress={onPress}/>
         </View>
     </View>
 )
@@ -28,8 +28,8 @@ export const NavRegister =({ onPress }) => (
     <View>
         <GoGoCar />
         <View style={styles.ContainerOption}>
-            <Option title="Iniciar Sesion" onPress={onPress}/>
-            <OptionSelected title="Registrate"/>
+            <Option title="Iniciar Sesión" onPress={onPress}/>
+            <OptionSelected title="Regístrate"/>
         </View>
     </View>
 )
