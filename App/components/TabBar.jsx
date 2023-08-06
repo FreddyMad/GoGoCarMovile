@@ -37,6 +37,7 @@ export default function TabBar({ state, descriptors, navigation }) {
 
         return (
           <TouchableOpacity
+            key={index.toString()}
             accessibilityRole="button"
             accessibilityState={isFocused ? { selected: true } : {}}
             accessibilityLabel={options.tabBarAccessibilityLabel}
@@ -62,7 +63,6 @@ const styles = StyleSheet.create({
       justifyContent: "center",
       alignItems: "center",
       flexDirection: "row",
-      backgroundColor: colors.fondo  
     },
     rowActive: {
       paddingHorizontal: 10,
@@ -72,6 +72,5 @@ const styles = StyleSheet.create({
       flexDirection: "row",
       borderBottomWidth: 5,
       borderBottomColor: colors.verde,
-      backgroundColor: colors.fondo
     },
 })

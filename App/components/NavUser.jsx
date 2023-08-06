@@ -1,13 +1,14 @@
 import React from "react"
-import { StyleSheet, Text, View } from "react-native"
-import { Entypo, FontAwesome } from "@expo/vector-icons"
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import { FontAwesome } from "@expo/vector-icons"
 import colors from "../constants/colors"
 
 const styles = StyleSheet.create({
     container: {
+        paddingHorizontal: 25,
         paddingTop: 7,
         paddingBottom: 3,
-        justifyContent: "space-evenly",
+        justifyContent: "space-between",
         alignItems: "center",
         flexDirection: "row",
         backgroundColor: colors.fondo,
@@ -20,14 +21,16 @@ const styles = StyleSheet.create({
     }
 })
 
-const NavUser = (props) => {
+const NavUser = ({user, token}) => {
     return (
         <View style={styles.container}>
             <View style={styles.containerUser}>
                 <FontAwesome name="user" size={24} color={colors.negro} style={{ marginRight: 6 }}/>
-                <Text>{props?.name ?? 'User'}</Text>
+                <Text>{user?.name ?? 'user'}</Text>
             </View>
-            <FontAwesome name="power-off" size={24} color={colors.rojo} />
+            <Pressable>
+                <FontAwesome name="power-off" size={24} color={colors.rojo} />
+            </Pressable>
         </View>
     )
 }
