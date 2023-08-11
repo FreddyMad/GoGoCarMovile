@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { StatusBar, StyleSheet } from "react-native"
+import { ScrollView, StatusBar, StyleSheet } from "react-native"
 import { SafeAreaView } from "react-native-safe-area-context";
+
 import axios from 'axios';
 import * as SecureStore from 'expo-secure-store';
+import { GoGoCar } from '../GoGoCar.js';
 import NavUser from "../NavUser.jsx"
 import colors from "../../constants/colors.js"
 
@@ -22,7 +24,7 @@ const Layout = ({ children }) => {
       const userID = await SecureStore.getItemAsync('user_id');
       const token = await SecureStore.getItemAsync('token');
       // Make Axios request using the obtained token
-      const response = await axios.get(`http://192.168.0.9:8000/api/usuario/${userID}`, {
+      const response = await axios.get(`http://192.168.0.6:8000/api/usuario/${userID}`, {
         headers: {
           Authorization: `Bearer ${token}`,
           Accept: 'application/json',
@@ -37,8 +39,11 @@ const Layout = ({ children }) => {
   return (
     <SafeAreaView>
       <StatusBar barStyle="dark-content" backgroundColor={colors.fondo} />
+      <GoGoCar/>
       <NavUser user={dataUsuario} />
-      { children }
+      <ScrollView style={{marginBottom: 90}}>
+        { children }
+      </ScrollView>
     </SafeAreaView>
   )
 }

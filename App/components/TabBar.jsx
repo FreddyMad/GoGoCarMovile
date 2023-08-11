@@ -3,7 +3,7 @@ import colors from "../constants/colors"
 
 export default function TabBar({ state, descriptors, navigation }) {
   return (
-    <View style={{ flexDirection: 'row', justifyContent: "space-around", alignItems: "center",}}>
+    <View style={{ flexDirection: 'row', justifyContent: "space-around", alignItems: "center", backgroundColor: colors.fondo}}>
       {state.routes.map((route, index) => {
         const { options } = descriptors[route.key];
         const label =

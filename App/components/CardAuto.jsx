@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 8,
         backgroundColor: colors.blanco,
-        borderColor: colors.amarillo,
+        borderColor: colors.verde,
         borderWidth: 3,
         paddingBottom: 7,
         width: 350,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         gap: 2,
         paddingHorizontal: 15,
         alignItems: 'flex-start',
-        paddingVertical: 10,
+        paddingVertical: 10
     },
     containerAtributo: {
         columnGap: 10,
@@ -37,17 +37,17 @@ const styles = StyleSheet.create({
         justifyContent: "space-between",
         marginTop: 4,
     },
-    botonWhatsapp: {
+    botonEliminar: {
         borderWidth: 3,
-        borderColor: colors.verde,
+        borderColor: colors.rojo,
         borderRadius: 10,
         marginStart: 12,
-        paddingVertical: 4,
-        paddingHorizontal: 7,
+        paddingVertical: 5,
+        paddingHorizontal: 9,
     },
-    botonSolicitar: {
+    botonEditar: {
         alignItems: "center",
-        backgroundColor: colors.verde,
+        backgroundColor: colors.amarillo,
         borderRadius: 8,
         flexDirection: "row",
         gap: 4,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const CardViaje = (props) => {
+const CardAuto = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.containerImagen}>
@@ -68,48 +68,39 @@ const CardViaje = (props) => {
             </View>
             <View style={styles.containerInfo}>
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="circle" size={24} color={colors.amarillo} />
-                    <Text>Estatus: Pocos lugares</Text>
+                    <FontAwesome name="car" size={18} color={colors.verde} />
+                    <Text>Estatus: Validado y activo</Text>
                 </View>
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="drivers-license" size={24} color={colors.negro} />
-                    <Text>Conductor: Alfredo Madrigal Tercero</Text>
+                    <Text style={{ marginStart: 30}}>Placa: AES8798</Text>
                 </View>
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="exchange" size={24} color={colors.negro} />
-                    <Text>Tipo de viaje: redondo</Text>
+                    <Text style={{ marginStart: 30}}>Marca: FORD</Text>
                 </View>
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="map-marker" size={24} color={colors.negro} />
-                    <Text>{'Gomez Morin ⟷ UPQ'}</Text>
+                    <Text style={{ marginStart: 30}}>Modelo: Fiesta</Text>
                 </View>
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="calendar" size={24} color={colors.negro} />
-                    <Text>Días: Jueves, Viernes</Text>
+                    <Text style={{ marginStart: 30}}>Capacidad: 4</Text>
                 </View>
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="clock-o" size={24} color={colors.negro} />
-                    <Text>Horarios: 13:30, 20:40</Text>
+                    <Text style={{ marginStart: 30}}>No. de seguro: 12345678</Text>
                 </View>
+                
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="group" size={24} color={colors.negro} />
-                    <Text>Pasajeros: 5 / 6</Text>
-                </View>
-                <View style={styles.containerAtributo}>
-                    {/* <FontAwesome name="group" size={24} color={colors.negro} /> */}
-                    <Text>Fecha de publicación: 01-08-2023</Text>
+                    <Text style={{ marginStart: 30}}>Registro: 16-05-2023</Text>
                 </View>
             </View>
             <View style={styles.containerBotones}>
-                <Pressable style={styles.botonWhatsapp}>
-                    <FontAwesome name="whatsapp" size={24} color={colors.verde} />
+                <Pressable style={styles.botonEliminar}>
+                    <FontAwesome name="trash" size={24} color={colors.rojo} />
                 </Pressable>
-                <Pressable style={styles.botonSolicitar}>
-                    <FontAwesome name="car" size={16} color={colors.blanco} />
-                    <Text style={{color: colors.blanco, fontWeight: 'bold'}}>Solicitar</Text>
+                <Pressable style={styles.botonEditar}>
+                    <FontAwesome name="pencil" size={16} color={colors.blanco} />
+                    <Text style={{color: colors.blanco, fontWeight: 'bold'}}>Editar</Text>
                 </Pressable>
             </View>
         </View>
     )
 }
-export default CardViaje
+export default CardAuto

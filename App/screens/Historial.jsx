@@ -1,25 +1,28 @@
-import React from 'react'
-import { StatusBar, StyleSheet, Text, View } from "react-native"
+import React, { useEffect, useState } from 'react'
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import axios from 'axios';
+import { FontAwesome5 } from "@expo/vector-icons"
+import Layout from '../components/layouts/Layout.jsx';
 import colors from "../constants/colors"
-import { SafeAreaView } from "react-native-safe-area-context";
+
+import CardHistorial from '../components/CardHistorial.jsx';
 
 const styles = StyleSheet.create({
-  contenedorBotones: {
-    marginTop: 10,
-    justifyContent: "space-evenly",
-    alignItems: "center",
-    flexDirection: "row",
-    backgroundColor: colors.fondo,
-  }
+  centeredView: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginTop: 22,
+  },
 })
 
-export default ({ navigation }) => {
+const Historial = ({ navigation }) => {
   return (
-    <SafeAreaView>
-      <StatusBar barStyle="dark-content" backgroundColor={colors.fondo} />
-      <View style={styles.contenedorBotones}>
-        <Text>Historial</Text>
+    <Layout>      
+      <View style={{ marginTop: 10, justifyContent: "center", alignItems: "center", rowGap: 10 }}>
+        <CardHistorial/>
       </View>
-    </SafeAreaView>
+    </Layout>
   )
 }
+export default Historial;

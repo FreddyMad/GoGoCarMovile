@@ -110,7 +110,7 @@ const FormikInputValue = ({ name, ...props }) => {
 const Register = ({ navigation }) => {
     const handleSubmit = (values) => {
         console.log(values)
-        axios.post(`http://192.168.0.9:8000/api/register`, {
+        axios.post(`http://192.168.0.6:8000/api/register`, {
             deviceName: 'Android', // Hay un paquete para configurar esta información
             email: values.email,
             password: values.password,

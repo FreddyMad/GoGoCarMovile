@@ -15,7 +15,7 @@ const styles = StyleSheet.create({
     container: {
         borderRadius: 8,
         backgroundColor: colors.blanco,
-        borderColor: colors.amarillo,
+        borderColor: colors.rojo,
         borderWidth: 3,
         paddingBottom: 7,
         width: 350,
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
         gap: 2,
         paddingHorizontal: 15,
         alignItems: 'flex-start',
-        paddingVertical: 10,
+        paddingVertical: 10
     },
     containerAtributo: {
         columnGap: 10,
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
     },
     botonSolicitar: {
         alignItems: "center",
-        backgroundColor: colors.verde,
+        backgroundColor: colors.rojo,
         borderRadius: 8,
         flexDirection: "row",
         gap: 4,
@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     }
 })
 
-const CardViaje = (props) => {
+const CardMiViaje = (props) => {
     return (
         <View style={styles.container}>
             <View style={styles.containerImagen}>
@@ -68,8 +68,8 @@ const CardViaje = (props) => {
             </View>
             <View style={styles.containerInfo}>
                 <View style={styles.containerAtributo}>
-                    <FontAwesome name="circle" size={24} color={colors.amarillo} />
-                    <Text>Estatus: Pocos lugares</Text>
+                    <FontAwesome name="circle" size={24} color={colors.rojo} />
+                    <Text>Estatus: Lleno</Text>
                 </View>
                 <View style={styles.containerAtributo}>
                     <FontAwesome name="drivers-license" size={24} color={colors.negro} />
@@ -77,11 +77,11 @@ const CardViaje = (props) => {
                 </View>
                 <View style={styles.containerAtributo}>
                     <FontAwesome name="exchange" size={24} color={colors.negro} />
-                    <Text>Tipo de viaje: redondo</Text>
+                    <Text>Tipo de viaje: Redondo</Text>
                 </View>
                 <View style={styles.containerAtributo}>
                     <FontAwesome name="map-marker" size={24} color={colors.negro} />
-                    <Text>{'Gomez Morin ⟷ UPQ'}</Text>
+                    <Text>Gómez Morin ⟷ UPQ</Text>
                 </View>
                 <View style={styles.containerAtributo}>
                     <FontAwesome name="calendar" size={24} color={colors.negro} />
@@ -93,11 +93,11 @@ const CardViaje = (props) => {
                 </View>
                 <View style={styles.containerAtributo}>
                     <FontAwesome name="group" size={24} color={colors.negro} />
-                    <Text>Pasajeros: 5 / 6</Text>
+                    <Text>Pasajeros: 6 / 6</Text>
                 </View>
                 <View style={styles.containerAtributo}>
                     {/* <FontAwesome name="group" size={24} color={colors.negro} /> */}
-                    <Text>Fecha de publicación: 01-08-2023</Text>
+                    <Text>Fecha publicación: {props?.fecha_pulicacion ?? null}</Text>
                 </View>
             </View>
             <View style={styles.containerBotones}>
@@ -105,11 +105,11 @@ const CardViaje = (props) => {
                     <FontAwesome name="whatsapp" size={24} color={colors.verde} />
                 </Pressable>
                 <Pressable style={styles.botonSolicitar}>
-                    <FontAwesome name="car" size={16} color={colors.blanco} />
-                    <Text style={{color: colors.blanco, fontWeight: 'bold'}}>Solicitar</Text>
+                    <FontAwesome name="times" size={16} color={colors.blanco} />
+                    <Text style={{color: colors.blanco, fontWeight: 'bold'}}>Eliminar</Text>
                 </Pressable>
             </View>
         </View>
     )
 }
-export default CardViaje
+export default CardMiViaje

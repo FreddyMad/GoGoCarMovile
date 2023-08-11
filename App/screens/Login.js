@@ -58,7 +58,7 @@ const FormikInputValue = ({ name, ...props }) => {
 
 export default function LogIn({ navigation }) {
     const handleSubmit = (values) => {
-        axios.post(`http://192.168.0.9:8000/api/login`, {
+        axios.post(`http://192.168.0.6:8000/api/login`, {
 			deviceName: 'Android',
 			email: values.email,
 			password: values.password

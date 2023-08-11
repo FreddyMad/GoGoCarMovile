@@ -14,9 +14,11 @@ const Modal = ({ isOpen, onClose, children, ...props }) => {
             <View style={styles.modalOverlay}>
                 <View style={styles.modalView}>
                     <View style={styles.modalHeader}>
-                        <FontAwesome5 name={props?.headerIcon ?? 'car'} size={32} color={colors.azul} />
+                        <View style={[styles.modalIcon, {backgroundColor: props?.iconBackground ?? colors.azulFondo}]}>
+                            <FontAwesome5 name={props?.headerIcon ?? 'car'} size={32} color={props?.iconColor ?? colors.azul } />
+                        </View>
                         <Pressable onPress={() => onClose}>
-                            <FontAwesome5 name="times" size={30} color={colors.rojo} />
+                            <FontAwesome5 name="times" size={30} color={colors.gris} />
                         </Pressable>
                     </View>
                     <View style={styles.modalBody}>
@@ -60,6 +62,10 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center'
     },
+    modalIcon: {
+        padding: 10,
+        borderRadius: 30,
+    },
     modalBody: {
         paddingVertical: 15,
         paddingHorizontal: 20,
@@ -67,7 +73,7 @@ const styles = StyleSheet.create({
     },
     modalTitle: {
         fontWeight: 'bold',
-        fontSize: 17
+        fontSize: 19
     },
     modalFooter: {
         gap: 4,

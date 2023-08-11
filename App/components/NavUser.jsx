@@ -6,8 +6,7 @@ import colors from "../constants/colors"
 const styles = StyleSheet.create({
     container: {
         paddingHorizontal: 25,
-        paddingTop: 7,
-        paddingBottom: 3,
+        paddingBottom: 7,
         justifyContent: "space-between",
         alignItems: "center",
         flexDirection: "row",

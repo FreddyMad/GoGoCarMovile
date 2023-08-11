@@ -1,6 +1,6 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native"
-import { Formik, useField } from 'formik'
+import { Pressable, StyleSheet, Text, View } from "react-native"
+import { Formik, useField } from "formik"
 import { Picker } from '@react-native-picker/picker';
 import axios from 'axios'
 import { crearAutoValidationSchema } from '../../../validationSchemas/crearAuto.js';
@@ -11,19 +11,19 @@ import ImageUpload from '../../../components/ImageUpload.jsx';
 import Modal from "../../../components/Modal.jsx"
 
 const initialValues = {
-	placa: '',
-	marca: '',
+	placa: 'AES7898',
+	marca: 'FORD',
 	marca_id: '',
 	modelo_id: '',
 	modelo: '',
-	capacidad: '',
-	no_seguro: '',
+	capacidad: '4',
+	no_seguro: '1234568',
 	foto: '',
-	verificado: false,
+	verificado: true,
 	activo: false
 }
 
-const CreateAuto = ({ modalOpen, onClose, marcas }) => {
+const EditAuto = ({ modalOpen, onClose, marcas }) => {
 	const [handleForm, setSubmitForm] = useState(false)
 
 	const handleSubmitForm = () => {
@@ -32,7 +32,7 @@ const CreateAuto = ({ modalOpen, onClose, marcas }) => {
 
 	return (
 		<Modal isOpen={modalOpen} onClose={onClose}
-			title='Agregar un nuevo auto'>
+			title='Editar auto' iconColor={colors.amarillo} iconBackground={colors.amarilloFondo}>
 			{{
 				body: <Body onClose={onClose} handleForm={handleForm} onSubmitForm={handleSubmitForm} marcas={marcas} />,
 				footer: <Footer onClose={onClose} onSubmitForm={handleSubmitForm} />,
@@ -234,7 +234,7 @@ const Footer = ({ onClose, onSubmitForm }) => {
 				onPress={onClose}>
 				<Text style={{ fontWeight: 'bold', fontSize: 16 }}>Cancelar</Text>
 			</Pressable>
-			<Pressable style={[styles.botones, { backgroundColor: colors.azul }]}
+			<Pressable style={[styles.botones, { backgroundColor: colors.amarillo }]}
 				onPress={onSubmitForm}>
 				<Text style={{ fontWeight: 'bold', fontSize: 16, color: colors.blanco }}>Confirmar</Text>
 			</Pressable>
@@ -287,4 +287,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default CreateAuto
+export default EditAuto

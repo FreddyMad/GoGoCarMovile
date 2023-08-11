@@ -1,29 +1,27 @@
 import React, { useRef, useState, useEffect } from 'react'
-import { Pressable, StyleSheet, Text, TextInput, View } from "react-native"
+import { Pressable, StyleSheet, Text, View } from "react-native"
 import { Formik, useField } from 'formik'
 import { Picker } from '@react-native-picker/picker';
+import { FontAwesome5 } from "@expo/vector-icons"
+import DateTimePicker from '@react-native-community/datetimepicker';
 import axios from 'axios'
-import { crearAutoValidationSchema } from '../../../validationSchemas/crearAuto.js';
-import colors from "../../../constants/colors.js"
+import colors from "../../../constants/colors"
 import Checkbox from 'expo-checkbox';
 import InputText from '../../../components/InputText.jsx';
-import ImageUpload from '../../../components/ImageUpload.jsx';
 import Modal from "../../../components/Modal.jsx"
 
 const initialValues = {
-	placa: '',
-	marca: '',
-	marca_id: '',
-	modelo_id: '',
-	modelo: '',
-	capacidad: '',
-	no_seguro: '',
-	foto: '',
-	verificado: false,
+	auto_id: '',
+	tipo_viaje_id: '',
+	hora_salida: '',
+	hora_llegada: '',
+	punto_llegada: '',
+	punto_salida: '',
+	descripcion: '',
 	activo: false
 }
 
-const CreateAuto = ({ modalOpen, onClose, marcas }) => {
+const CreateViaje = ({ modalOpen, onClose }) => {
 	const [handleForm, setSubmitForm] = useState(false)
 
 	const handleSubmitForm = () => {
@@ -32,9 +30,9 @@ const CreateAuto = ({ modalOpen, onClose, marcas }) => {
 
 	return (
 		<Modal isOpen={modalOpen} onClose={onClose}
-			title='Agregar un nuevo auto'>
+			title="Crear un nuevo viaje" headerIcon='route'>
 			{{
-				body: <Body onClose={onClose} handleForm={handleForm} onSubmitForm={handleSubmitForm} marcas={marcas} />,
+				body: <Body onClose={onClose} handleForm={handleForm} onSubmitForm={handleSubmitForm} />,
 				footer: <Footer onClose={onClose} onSubmitForm={handleSubmitForm} />,
 			}}
 		</Modal>
@@ -75,9 +73,18 @@ const FormikInputValue = ({ name, ...props }) => {
 	)
 }
 
-const Body = ({ onClose, handleForm, onSubmitForm, marcas }) => {
-	const [modelos, setModelos] = useState(null)
+const Body = ({ onClose, handleForm, onSubmitForm }) => {
 	const formikRef = useRef()
+	const [timePicker, setTimePicker] = useState(false);
+	const [time, setTime] = useState(new Date(Date.now()));
+
+	function onTimeSelected(event, value) {
+		setTime(value);
+		setTimePicker(false);
+	}
+	function showTimePicker() {
+		setTimePicker(true);
+	}
 
 	const handleSubmit = async (values) => {
 		console.log(values)
@@ -103,121 +110,114 @@ const Body = ({ onClose, handleForm, onSubmitForm, marcas }) => {
 		});
 	}
 
-
-
-
-	useEffect(() => {
-		if (handleForm) {
-			var marca = marcas.find(marca => marca.MakeId == formikRef.current.values.marca_id);
-			if (modelos != null) {
-				var modelo = modelos.find(modelo => modelo.Model_ID == formikRef.current.values.modelo_id);
-				formikRef.current.setFieldValue('modelo', modelo?.Model_Name)
-				formikRef.current.setFieldValue('marca', marca?.MakeName)
-				onSubmitForm()
-				formikRef.current.submitForm()
-			}
-		}
-	}, [handleForm]);
-
-	const fetchModelos = async (id) => {
-		try {
-			const response = await axios.get(`https://vpic.nhtsa.dot.gov/api/vehicles/GetModelsForMakeId/${id}?format=json`)
-			setModelos(response.data.Results)
-		} catch (error) {
-			console.log(error);
-		}
-	}
-
-	const handleMarcaChange = async (e) => {
-		setModelos(null)
-		formikRef.current.setFieldValue('marca_id', e)
-		const id = e
-		fetchModelos(id)
-	}
-
 	return (
 		<Formik
-			marcas={marcas}
 			innerRef={formikRef}
 			initialValues={initialValues}
-			validationSchema={crearAutoValidationSchema}
 			onSubmit={handleSubmit}
 		>
 			{({ errors, values, handleChange }) => {
 				return (
 					<>
-						<Text style={{color: 'gray', fontWeight: 'bold', fontSize: 17, marginBottom: 3}}>Datos del vehículo</Text>
-						<View style={styles.contenedor}>
+						<FormikInputValue
+							name="descripcion"
+							placeholder="Descripción"
+						/>
+						<View style={styles.picker}>
+							<Picker
+								enabled={true}
+								mode="dropdown"
+								selectedValue={values.auto_id}
+								itemStyle={styles.pickerItem}
+							>
+								<Picker.Item
+									label="Seleccione el tipo de viaje"
+									enabled={false}
+									value="" />
+							</Picker>
+						</View>
+						<Text style={styles.subtitle}>Salida y Destino</Text>
+						<View >
 							<View>
 								<FormikInputValue
-									name="placa"
-									placeholder="Placa"
+									name="punto_salida"
+									placeholder="Punto de salida"
 								/>
 								<FormikInputValue
-									name="capacidad"
-									placeholder="Capacidad"
-									keyboardType="numeric"
+									name="punto_llegada"
+									placeholder="Punto de llegada"
 								/>
 							</View>
+							<Text style={styles.subtitle}>Horarios y días</Text>
+							<View style={styles.contenedor}>
+								<View style={styles.contenedor}>
+									<FormikInputValue
+										name="hora_salida"
+										placeholder="Hora de salida"
+										disabled
+									/>
+									<Pressable onPress={() => onClose} style={{ marginStart: 2, alignItems: 'center', justifyContent: 'center' }}>
+										<FontAwesome5 name="clock" size={16} color={colors.gris} />
+									</Pressable>
+								</View>
+								<View style={styles.contenedor}>
+									<FormikInputValue
+										name="hora_llegada"
+										placeholder="Hora de llegada"
+										disabled
+									/>
+									<Pressable onPress={() => onClose} style={{ marginStart: 2, alignItems: 'center', justifyContent: 'center' }}>
+										<FontAwesome5 name="clock" size={16} color={colors.gris} />
+									</Pressable>
+								</View>
+							</View>
+							<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
+								<FormikCheckValue
+									label="L"
+									name="lunes"
+								/>
+								<FormikCheckValue
+									label="M"
+									name="martes"
+								/>
+								<FormikCheckValue
+									label="M"
+									name="miercoles"
+								/>
+								<FormikCheckValue
+									label="J"
+									name="jueves"
+								/>
+								<FormikCheckValue
+									label="V"
+									name="viernes"
+								/>
+								<FormikCheckValue
+									label="S"
+									name="sabado"
+								/>
+							</View>
+							<Text style={styles.subtitle}>Vehículo</Text>
 							<View style={styles.picker}>
 								<Picker
 									enabled={true}
 									mode="dropdown"
-									onValueChange={(e) => handleMarcaChange(e)}
-									selectedValue={values.marca_id}
+									selectedValue={values.auto_id}
 									itemStyle={styles.pickerItem}
 								>
 									<Picker.Item
-										label="Seleccione una marca"
+										label="Seleccione un auto"
 										enabled={false}
 										value="" />
-									{marcas.map(function (item) {
+									{/* {marcas.map(function (item) {
 										return (
 											<Picker.Item
 												label={item.MakeName.toString()}
 												value={item.MakeId.toString()}
 												key={item.MakeId.toString()} />
 										)
-									})}
+									})} */}
 								</Picker>
-								{errors.marca ? <Text style={styles.errores}>{errors.marca_id}</Text> : null}
-							</View>
-							<View style={styles.picker}>
-								<Picker
-									mode="dropdown"
-									onValueChange={handleChange('modelo_id')}
-									selectedValue={values.modelo_id}
-								>
-									<Picker.Item
-										label="Seleccione un modelo"
-										enabled={false}
-										value="" />
-									{modelos != null ? modelos.map((item) => {
-										return (
-											<Picker.Item
-												label={item.Model_Name.toString()}
-												value={item.Model_ID.toString()}
-												key={item.Model_ID.toString()} />
-										)
-									}) : null}
-								</Picker>
-								{errors.modelo ? <Text style={styles.errores}>{errors.modelo_id}</Text> : null}
-							</View>
-							<FormikInputValue
-								name="no_seguro"
-								placeholder="Número de seguro"
-								keyboardType="numeric"
-							/>
-								<ImageUpload buttonText='Sube una imagen del auto' />
-							<View style={{ flexDirection: 'row', justifyContent: 'space-around', marginVertical: 10 }}>
-								<FormikCheckValue
-									label="Verificado"
-									name="verificado"
-								/>
-								<FormikCheckValue
-									label="Activo"
-									name="activo"
-								/>
 							</View>
 						</View>
 					</>
@@ -243,6 +243,11 @@ const Footer = ({ onClose, onSubmitForm }) => {
 }
 
 const styles = StyleSheet.create({
+	contenedor: {
+		flexDirection: 'row',
+		justifyContent: 'space-between',
+		alignItems: 'center'
+	},
 	botones: {
 		alignContent: 'center',
 		justifyContent: 'center',
@@ -256,6 +261,12 @@ const styles = StyleSheet.create({
 		marginStart: 18,
 		marginBottom: 4,
 	},
+	subtitle: {
+		color: 'gray',
+		fontWeight: 'bold',
+		fontSize: 17,
+		marginBottom: 3
+	},
 	checkboxContainer: {
 		alignItems: 'center',
 		marginLeft: 20,
@@ -263,8 +274,8 @@ const styles = StyleSheet.create({
 	},
 	checkboxLabel: {
 		paddingHorizontal: 10,
-		alignSelf:'center',
-		textAlign:'center',
+		alignSelf: 'center',
+		textAlign: 'center',
 		fontSize: 15,
 		color: colors.label,
 	},
@@ -287,4 +298,4 @@ const styles = StyleSheet.create({
 	}
 })
 
-export default CreateAuto
+export default CreateViaje
