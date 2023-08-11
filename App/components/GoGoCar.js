@@ -1,12 +1,12 @@
 import React from "react"
 import { StyleSheet, Text, View } from "react-native"
-import { Entypo } from "@expo/vector-icons"
+import { Entypo, FontAwesome5 } from "@expo/vector-icons"
 import colors from "../constants/colors"
 
 const styles = StyleSheet.create({
     row: {
         paddingHorizontal: 20,
-        paddingVertical: 16,
+        paddingVertical: 12,
         justifyContent: "center",
         alignItems: "center",
         flexDirection: "row",
@@ -24,7 +24,7 @@ const styles = StyleSheet.create({
 
 export const GoGoCar =() => (
     <View style={styles.row}>
-        <Entypo name="gauge" size={24} color={colors.verde}/>
+        <FontAwesome5 name="car-side" size={24} color={colors.verde}/>
         <Text style={styles.texto}>GoGoCar</Text>
     </View>
 )
